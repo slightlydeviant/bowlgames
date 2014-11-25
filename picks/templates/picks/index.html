@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if game_list %}
+    <ul>
+    {% for game in game_list %}
+        <li>{{ game.game }}; Kickoff: {{ game.kickoff_time }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games are available.</p>
+{% endif %}
+{% endblock %}

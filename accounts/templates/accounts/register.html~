@@ -1,0 +1,24 @@
+{% extends "account_base.html" %}
+
+{% block guestlinks %}
+	<a href="{% url 'accounts:login_page' %}">Log In</a> or register below.
+{% endblock %}
+
+{% block content %}
+
+<h2>Registration Page</h2>
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form method="post" action="{% url 'accounts:register' %}">
+{% csrf_token %}
+First Name: <input type="text" name="firstname"><br>
+Last Name: <input type="text" name="lastname"><br>
+Username: <input type="text" name="username"><br>
+Password: <input type="password" name="password">
+Re-enter password: <input type="password" name="password2"><br>
+<input type="submit" value="Register" />
+</form>
+{% endblock %}

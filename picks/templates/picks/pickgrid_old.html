@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block css %}
+	td.winner { background-color: yellow }
+{% endblock %}
+
+{% block content %}
+
+<h2>Game Picker</h2>
+<p>Please review your picks below:</p>
+
+{% regroup allpicks by user as user_list %}
+<table>
+	<tr>
+		<th>Game</th>
+		{% for g in games %}
+		<th>{{ g.game }}</th>
+		{% endfor %}
+	</tr>
+	{% for u in user_list %}
+	<tr>
+	    <th>{{ u.grouper.first_name }}</th>
+	    {% for item in u.list %}
+		<td>{{ item.pick.display_name }}</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+
+<br />
+
+<ul>
+{% for user in user_list %}
+    <li>{{ user.grouper }}
+    <ul>
+        {% for item in user.list %}
+          <li>{{ item.game }}: {{ item.pick }}</li>
+        {% endfor %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+
+<br />
+
+{% regroup allpicks2 by game as game_list %}
+<table>
+	<tr>
+		<th>Game</th>
+		{% for u in users %}
+		<th>{{ u.first_name }}</th>
+		{% endfor %}
+	</tr>
+	{% for g in game_list %}
+	<tr>
+	    <th><span>{{ g.grouper }}</span></th>
+	    {% for item in g.list %}
+			{% if item.pick.win %}
+				<td class="winner">{{ item.pick.display_name }}</td>
+			{% else %}
+				<td class="loser">{{ item.pick.display_name }}</td>
+			{% endif %}
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+
+<ul>
+{% for game in game_list %}
+    <li>{{ game.grouper }}
+    <ul>
+        {% for item in game.list %}
+          <li>{{ item.user }}: {{ item.pick }}</li>
+        {% endfor %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

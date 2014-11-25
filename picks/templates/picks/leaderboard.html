@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<h2>Leaderboard</h2>
+	<div class="panel panel-default">
+		<table class="table table-hover table-condensed">
+			<thead>
+				<th>Rank</th>
+				<th>Player</th>
+				<th>Points</th>
+			</thead>
+			<tbody>
+			{% for ranklist in pointlist %}
+				<tr class="{% if ranklist.1 == currentuser %}info{% else %}{% endif %}">
+					<th class="rank">{{ ranklist.0 }}</th>
+					<th class="player">{{ ranklist.1.first_name }}</th>
+					<td class="points">{{ ranklist.1.points }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block guestlinks %}
+	<a href="{% url 'accounts:login_page' %}">Log in</a>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+	<div class="jumbotron">
+		<h2>Welcome to the new Lee Family College Bowl Series!</h2>
+		<p>New for 2014: the online era begins!</p>
+	</div>
+	
+	<div class="container">
+		<h4>Past Champions</h4>
+		<table class="table">
+			<tr>
+				<th>Winner</th>
+				<th>Years</th>
+			</tr>
+			<tr>
+			    <td>Jeff</td>
+			    <td>2007, 2006, 2003, 1995, 1994, 1992</td>
+			</tr>
+			<tr>
+			    <td>Pops</td>
+			    <td>2013, 2004, 1993</td>
+			</tr>
+			<tr>
+				<td>Chris</td>
+				<td>2001, 2000, 1991</td>
+			</tr>
+			<tr>
+			    <td>Barbara</td>
+			    <td>2011, 1999 (tie)</td>
+			</tr>
+			<tr>
+			    <td>Bunni</td>
+			    <td>2012</td>
+			</tr>
+			<tr>
+			    <td>Jake</td>
+			    <td>2010</td>
+			</tr>
+			<tr>
+			    <td>Randy</td>
+			    <td>2009</td>
+			</tr>
+			<tr>
+			    <td>Diane</td>
+			    <td>2008</td>
+			</tr>
+			<tr>
+			    <td>Jill</td>
+			    <td>2005<td>
+			</tr>
+			<tr>
+			    <td>Angela</td>
+			    <td>2002</td>
+			</tr>
+			<tr>
+			    <td>Wendy</td>
+			    <td>1999 (tie)</td>
+			</tr>
+			<tr>
+			    <td>Grams</td>
+			    <td>1998</td>
+			</tr>
+			<tr>
+				<td>Kelvin</td>
+				<td>1997</td>
+			</tr>
+			<tr>
+			    <td>David</td>
+			    <td>1996</td>
+			</td>			
+		</table>
+	</div>
+</div>
+{% endblock %}

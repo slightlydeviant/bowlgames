@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+		<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+        <title>{% block title %}Lee Family College Bowl Series 2014{% endblock %}</title>
+		<style>{% block css %}{% endblock %}</style>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="{% url 'home' %}">Lee Family Bowls</a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'picks:index' %}">My Picks</a></li>
+					<li><a href="{% url 'picks:grid' %}">The Grid</a></li>
+					<li><a href="{% url 'picks:leaderboard' %}">Leaderboard</a></li>
+				</ul>
+			</div>
+			<div class="navbar-right">
+				{% if user.is_active %}
+				<p class="navbar-text">Welcome, <strong>{% firstof user.get_short_name user.get_username %}</strong>!
+				{% block userlinks %}
+					<a href="{% url 'accounts:logout' %}">Log out</a>
+				{% endblock %}
+				{% else %}
+				<p class="navbar-text">Welcome, Guest!
+					<a href="{% url 'accounts:login_page' %}">Log In</a> or
+					<a href="{% url 'accounts:registration_page' %}">Register</a> to start making your picks
+				{% endif %}
+			</div>
+		</div>
+	</nav>
+
+	
+    {% block content %}{% endblock %}
+	
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    </body>
+</html>
