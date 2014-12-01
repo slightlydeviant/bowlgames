@@ -1,8 +1,7 @@
 To do:
 Version 1.0
-- Finish tiebreaker in logic
+- Finish tiebreaker in logic (webscrape and django)
 - Test web scraper cron job
-- Close pick submission (and open grid) after certain date/time
 
 
 Version 1.1
