@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
 
-currentseason = 'Test'
+currentseason = 'Conference Championships'
 
 class Game(models.Model):
     game = models.CharField(max_length = 80)
@@ -13,7 +13,7 @@ class Game(models.Model):
     season = models.CharField(max_length = 80)
     def __unicode__(self):
         return self.game
-    
+
 class Team(models.Model):
     game = models.ForeignKey(Game)
     team = models.CharField(max_length = 80)
@@ -21,7 +21,7 @@ class Team(models.Model):
     display_name = models.CharField(max_length = 2)
     def __unicode__(self):
         return self.team
-        
+
 class UserPicks(models.Model):
     user = models.ForeignKey(User)
     game = models.ForeignKey(Game)

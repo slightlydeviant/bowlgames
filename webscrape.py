@@ -12,8 +12,7 @@ from django.contrib.auth.models import User
 from picks.models import *
 
 # hard coded section:
-url = 'http://scores.espn.go.com/ncf/scoreboard?confId=8&seasonYear=2014&seasonType=2&weekNumber=14'
-# champgame = 'Iron Bowl'
+url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2014&seasonType=2&weekNumber=15'
 #url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2013&seasonType=3&weekNumber=17'
 # champgame = 'BCS'
 

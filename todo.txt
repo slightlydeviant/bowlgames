@@ -1,12 +1,12 @@
 To do:
-- In grid, set None points to 0
-- Correct ranking on leaderboard
-    ($pip install Ranking; 
-     >>>from ranking import Ranking, ranks;
-     >>>ranks(Ranking(scores, start=1));)
+Version 1.0
 - Finish tiebreaker in logic
-- Link web scraper to database and create cron job
+- Test web scraper cron job
 - Close pick submission (and open grid) after certain date/time
-- Different point values for playoff games
-- Style and Design
+
+
+Version 1.1
 - Email password changes
+- Different point values for playoff games?
+- Style and Design
+- League/Pool Support
