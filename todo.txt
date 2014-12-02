@@ -1,5 +1,6 @@
 To do:
 Version 1.0
+- Get jquery into project
 - Finish tiebreaker in logic (webscrape and django)
 - Test web scraper cron job
 

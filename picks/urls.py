@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from picks import views
 
@@ -11,4 +11,4 @@ urlpatterns = patterns('',
     url(r'^leaderboard/$', views.leader, name='leaderboard'),
 )
 
-urlpatterns += staticfiles_urlpatterns()
+# urlpatterns += staticfiles_urlpatterns()

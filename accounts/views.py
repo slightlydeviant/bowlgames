@@ -9,10 +9,10 @@ from django.contrib.auth.models import User
 
 def logout_page(request):
     return HttpResponse("<a href=''>Click to log out</a>")
-    
+
 def login_page(request):
     return render(request, 'accounts/login.html')
-    
+
 def login_user(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -33,7 +33,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
-    
+
 def register_page(request):
     return render(request, 'accounts/register.html')
 
@@ -44,7 +44,7 @@ def register_user(request):
     pw = request.POST['password']
     pw2 = request.POST['password2']
     current_users_list = User.objects.values_list('username', flat=True)
-    if username is not None and firstname is not None and lastname is not None and pw is not None:
+    if username is not u'' and firstname is not u'' and lastname is not u'' and pw is not u'':
         if username not in current_users_list:
             if pw == pw2:
                 user = User.objects.create_user(username = username,
@@ -67,7 +67,7 @@ def register_user(request):
         return render(request, 'accounts/register.html', {
             'error_message': "Field missing. Please try again.",
         })
-        
+
 def register_user2(request):
     firstname = request.POST['firstname']
     lastname = request.POST['lastname']
@@ -92,4 +92,3 @@ def register_user2(request):
         return render(request, 'accounts/register.html', {
             'error_message': "Field missing. Please try again.",
         })
-    

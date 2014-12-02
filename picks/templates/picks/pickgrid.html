@@ -19,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% for g in game_list %}
+		{% for g in game_list|dictsort:"grouper.kickoff_time" %}
 			<tr>
 				<th title="{{ g.grouper.team_set.first }} vs. {{ g.grouper.team_set.last }}: {{ g.grouper.kickoff_time }}" data-container="body" data-toggle="tooltip" data-placement="bottom"><span>{{ g.grouper }}</span></th>
 				{% for item in g.list %}
