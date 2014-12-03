@@ -16,12 +16,12 @@ def pickwinners(request):
     """Renders the pick selection page. Populates dropdown lists"""
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('accounts:login_page'))
-    # # Close picks after first kickoff
-    # if min(Game.objects.filter(season = currentseason)\
-    #     .values_list('kickoff_time', flat=True)) < timezone.now():
-    #     msg1 = "Too Late!"
-    #     msg2 = "The first game has already started. You may no longer change your picks, but you may check them "
-    #     return render(request, 'picks/closed.html', {'msg_head': msg1, 'msg_body': msg2})
+    # Close picks after first kickoff
+    if min(Game.objects.filter(season = currentseason)\
+        .values_list('kickoff_time', flat=True)) < timezone.now():
+        msg1 = "Too Late!"
+        msg2 = "The first game has already started. You may no longer change your picks, but you may check them "
+        return render(request, 'picks/closed.html', {'msg_head': msg1, 'msg_body': msg2})
     else:
         game_list = Game.objects.filter(season=currentseason)
         user_ob = request.user
@@ -101,53 +101,6 @@ def savepicks(request):
                                            pick_date = timezone.now())
                             up.save()
 
-        # for key in key_list:
-        #     pick_exists = UserPicks.objects.filter(
-        #                   user = User.objects.filter(username=user),
-        #                   game = key)
-        #     tiebreaker = request.POST.get(key + '_tiebreak', None)
-        #     if(pick_exists):
-        #         # If pick is left empty and it is not the tiebreaker game, move on
-        #         if(request.POST[key] == '' & tiebreaker is None):
-        #             continue
-        #
-        #         # If pick is empty and it is the tiebreaker game, get tiebreaker points
-        #         if(request.POST[key] == '' & tiebreaker is not None):
-        #             if(isInt(tiebreaker)): # check if tiebreaker is integer
-        #                 pick_exists.update(tiebreak = int(tiebreaker),
-        #                                    pick_date = timezone.now())
-        #             # else:
-        #                 # return error message?
-        #
-        #         # If pick is not empty, save pick and tiebreaker points if applicable
-        #         if(request.POST[key] != '')
-        #             # check if tiebreaker is integer ('None' should be a string. not a typo)
-        #             if(isInt(request.POST.get(key + '_tiebreak', 'None'))):
-        #                 pick_exists.update(pick = Team.objects.get(id = request.POST[key]),
-        #                                    tiebreak = int(request.POST.get(key + '_tiebreak')),
-        #                                    pick_date = timezone.now())
-        #             # else:
-        #                 # return error message?
-        #     else: # Pick for that game has not been made yet
-        #         # If pick is left blank, create userpicks object with pick = None
-        #         if(request.POST[key] == ''):
-        #
-        #             # Check if tiebreak is integer
-        #             if(isInt(request.POST.get(key + '_tiebreak', 'None'))):
-        #                 up = UserPicks(user = User.objects.get(username = user),
-        #                                tiebreak = int(request.POST.get(key + '_tiebreak')),
-        #                                game = Game.objects.get(id = key))
-        #                 up.save()
-        #             else:
-        #                 # error message here?
-        #         else:
-        #             up = UserPicks(user = User.objects.get(username = user),
-        #                            game = Game.objects.get(id = key),
-        #                            pick = Team.objects.get(id = request.POST[key]),
-        #                            tiebreak = request.POST.get(key + '_tiebreak', None),
-        #                            pick_date = timezone.now())
-        #             up.save()
-
         if tiebreak_error:
             game_list = Game.objects.filter(season=currentseason)
             user_ob = request.user
@@ -161,14 +114,14 @@ def savepicks(request):
             return render(request, 'picks/output.html', context)
 
 def pickgrid(request):
-    # """Renders the grid of all picks by all users"""
-    # # Close grid while picks are live (before first kickoff)
-    # if min(Game.objects.filter(season = currentseason)\
-    #     .values_list('kickoff_time', flat=True)) > timezone.now():
-    #     msg1 = "No Peeking!"
-    #     msg2 = "Others are still making their picks. You may check your picks "
-    #     return render(request, 'picks/closed.html', {'msg_head': msg1, 'msg_body': msg2})
-    # else:
+    """Renders the grid of all picks by all users"""
+    # Close grid while picks are live (before first kickoff)
+    if min(Game.objects.filter(season = currentseason)\
+        .values_list('kickoff_time', flat=True)) > timezone.now():
+        msg1 = "No Peeking!"
+        msg2 = "Others are still making their picks. You may check your picks "
+        return render(request, 'picks/closed.html', {'msg_head': msg1, 'msg_body': msg2})
+    else:
         users = User.objects.filter(id__in=UserPicks.objects.filter(game__season = currentseason)\
             .values('user').distinct())
         games = Game.objects.filter(season = currentseason)

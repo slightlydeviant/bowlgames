@@ -12,9 +12,7 @@
     {% if game_list %}
 	    <form action="{% url 'picks:index' %}" method="post" role="form">
 	    {% csrf_token %}
-        {% for bowl in game_list %}
-
-
+        {% for bowl in game_list|dictsort:"kickoff_time" %}
             <div class="form-group">
 	            <label for="game">{{ bowl.game }}</label>
 		        <select name="{{ bowl.id }}" class="form-control">
@@ -25,7 +23,6 @@
 		        </select>
 	            {% if 'BCS' in bowl.game %}
 	            <input name="{{ bowl.id }}_tiebreak" class="form-control" placeholder="{{ bowl.game }} Total Points">
-	            <p><i>*Note: To add or change your tiebreaker points, you must choose a team to win the game</i></p>
 		        {% endif %}
 		    </div>
         {% endfor %}

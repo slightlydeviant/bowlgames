@@ -11,7 +11,7 @@
 				<th>Your Pick</th>
 				<th>Pick Date</th>
 			</tr>
-			{% for item in allpicks %}
+			{% for item in allpicks|dictsort:"game.kickoff_time" %}
 			<tr>
 				<td>{{ item.game }}</td>
 				<td>{{ item.pick }}</td>
