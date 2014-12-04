@@ -85,6 +85,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     "C:/Users/elee/Documents/Misc/DjangoWebProjects/bowlgames/bowlgames/static/",
     "/home/hadoop/PhoneApp/DjangoWeb/bowlgames/bowlgames/static/",
+    "/home/web/sites/bowlgames/bowlgames/static/",
 )
 
 # Template Directory
