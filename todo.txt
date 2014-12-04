@@ -1,11 +1,11 @@
 To do:
 Version 1.0
-- Get jquery into project
 - Finish tiebreaker in logic (webscrape and django)
 - Test web scraper cron job
 
 
 Version 1.1
+- When reloading page after input error, keep good input in form
 - Email password changes
 - Different point values for playoff games?
 - Style and Design
