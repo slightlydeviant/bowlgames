@@ -20,11 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '4lq$ef0bq(o&i5$lm6pgvp)-o@rwp-kxu9kel@0vt&2$boy3mp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['leefamilybowl.tk', 'www.leefamilybowl.tk']
 
 
 # Application definition
@@ -82,11 +83,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    "C:/Users/elee/Documents/Misc/DjangoWebProjects/bowlgames/bowlgames/static/",
-    "/home/hadoop/PhoneApp/DjangoWeb/bowlgames/bowlgames/static/",
-    "/home/web/sites/bowlgames/bowlgames/static/",
-)
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATICFILES_DIRS = (
+#     "C:/Users/elee/Documents/Misc/DjangoWebProjects/bowlgames/bowlgames/static/",
+#     "/home/hadoop/PhoneApp/DjangoWeb/bowlgames/bowlgames/static/",
+# )
 
 # Template Directory
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
