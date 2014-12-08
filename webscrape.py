@@ -12,7 +12,8 @@ from django.contrib.auth.models import User
 from picks.models import *
 
 # hard coded section:
-url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2014&seasonType=2&weekNumber=15'
+url = 'http://scores.espn.go.com/ncf/scoreboard?confId=80&seasonYear=2014&seasonType=2&weekNumber=15'
+# url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2014&seasonType=2&weekNumber=15'
 champgame = 'BCS CHAMPIONSHIP'
 #url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2013&seasonType=3&weekNumber=17'
 
@@ -32,7 +33,7 @@ for game in games:
 # for tm in winTeam:
 #     print tm
 
-for tm in Team.objects.filter(game__season == currentseason):
+for tm in Team.objects.filter(game__season = currentseason):
     if tm.team in winTeam:
         tm.win = True
         tm.save()
