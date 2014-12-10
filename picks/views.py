@@ -161,6 +161,7 @@ def leader(request):
     if true_score is None:
         ranks = Ranking(pointlist, start = 1, key = getPoints)
         ranklist = list(ranks)
+        winner = False
     else:
         ranks = Ranking(pointlist, start = 1, key = getPoints)
         ranklist = list(ranks)
@@ -170,7 +171,6 @@ def leader(request):
         firstplaceranks = [breakTie(x) for x in firstplacelist]
         firstplaceranks.sort()
         firstplace = firstplaceranks[0]
-        winner = firstplace[1]
         pointlist2 = User.objects.filter(userpicks__game__season = currentseason)\
             .exclude(id = firstplace[1].id)\
             .annotate(points=Sum('userpicks__pick__win'))\
@@ -180,8 +180,9 @@ def leader(request):
                 person.points = 0
         therest = Ranking(pointlist2, start = 2, key = getPoints)
         ranklist = list(therest)
-        ranklist.insert(0, (1, winner))
+        ranklist.insert(0, (1, firstplace[1]))
+        winner = firstplace[1].first_name
 
 
-    context = {'pointlist': ranklist, 'currentuser': currentuser, 'winner': winner.first_name}
+    context = {'pointlist': ranklist, 'currentuser': currentuser, 'winner': winner}
     return render(request, 'picks/leaderboard.html', context)
