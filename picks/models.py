@@ -3,8 +3,12 @@ from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
 
+# hard coded section:
 currentseason = 'Conference Championships'
+champgame = 'BCS CHAMPIONSHIP' # must match game title in both database and url
+url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2014&seasonType=2&weekNumber=15'
 
+# Code first models:
 class Game(models.Model):
     game = models.CharField(max_length = 80)
     kickoff_time = models.DateTimeField()

@@ -11,11 +11,6 @@ import bowlgames
 from django.contrib.auth.models import User
 from picks.models import *
 
-# hard coded section:
-url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2014&seasonType=2&weekNumber=15'
-champgame = 'BCS CHAMPIONSHIP'
-#url = 'http://scores.espn.go.com/ncf/scoreboard?seasonYear=2013&seasonType=3&weekNumber=17'
-
 r = requests.get(url)
 data = r.text
 soup = BeautifulSoup(data, 'html.parser')
@@ -32,15 +27,14 @@ for game in games:
 # for tm in winTeam:
 #     print tm
 
-for tm in Team.objects.filter(game__season == currentseason):
+for tm in Team.objects.filter(game__season = currentseason):
     if tm.team in winTeam:
         tm.win = True
         tm.save()
 
 # Get game total scores
 for gm in soup.find_all('div', class_='game-notes'):
-    # if 'BCS NATIONAL CHAMPIONSHIP' in gm.text:
-    if 'MOUNTAIN WEST CHAMPIONSHIP' in gm.text:
+    if champgame in gm.text:
         scores = gm.parent.find_all('li', class_='final')
         total = int(scores[1].text) + int(scores[2].text)
         bcschamp = Game.objects.filter(season=currentseason, game__contains=champgame)[0]
