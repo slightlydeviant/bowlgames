@@ -10,13 +10,13 @@ from django.utils import timezone
 from ranking import Ranking
 
 from django.contrib.auth.models import User
-from picks.models import Game, Team, UserPicks, currentseason
+from picks.models import *
 
 def pickwinners(request):
     """Renders the pick selection page. Populates dropdown lists"""
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('accounts:login_page'))
-    # Close picks after first kickoff
+    Close picks after first kickoff
     if min(Game.objects.filter(season = currentseason)\
         .values_list('kickoff_time', flat=True)) < timezone.now():
         msg1 = "Too Late!"
@@ -115,7 +115,7 @@ def savepicks(request):
 
 def pickgrid(request):
     """Renders the grid of all picks by all users"""
-    # Close grid while picks are live (before first kickoff)
+    Close grid while picks are live (before first kickoff)
     if min(Game.objects.filter(season = currentseason)\
         .values_list('kickoff_time', flat=True)) > timezone.now():
         msg1 = "No Peeking!"
@@ -149,18 +149,40 @@ def leader(request):
         if person.points == None:
             person.points = 0
 
-# insert tiebreaker logic here:
-# maybe annotate(Sum(tiebreak), Sum(totalscore))
-# diff = abs(tie_sum - total_sum)
-# order_by('-points', 'diff', 'first_name')
-
     def getPoints(self):
         return self.points
+    def breakTie(self):
+        return (abs(self.userpicks_set.get(game__game__contains = champgame).tiebreak - true_score),
+                self)
+    def getBreakTie(self):
+        return breakTie(self)[0]
 
-    ranks = Ranking(pointlist, start = 1, key = getPoints)
-    ranklist = list(ranks)
+    true_score = Game.objects.get(game__contains=champgame).totalscore
+    if true_score is None:
+        ranks = Ranking(pointlist, start = 1, key = getPoints)
+        ranklist = list(ranks)
+        winner = False
+    else:
+        ranks = Ranking(pointlist, start = 1, key = getPoints)
+        ranklist = list(ranks)
 
-    # currentrank = ranks.rank(currentuser)
+        firstplacelist = [x for (rank, x) in ranklist if rank == 1]
 
-    context = {'pointlist': ranklist, 'currentuser': currentuser}  # , 'currentrank': currentrank}
+        firstplaceranks = [breakTie(x) for x in firstplacelist]
+        firstplaceranks.sort()
+        firstplace = firstplaceranks[0]
+        pointlist2 = User.objects.filter(userpicks__game__season = currentseason)\
+            .exclude(id = firstplace[1].id)\
+            .annotate(points=Sum('userpicks__pick__win'))\
+            .order_by('-points', 'first_name')
+        for person in pointlist2:
+            if person.points == None:
+                person.points = 0
+        therest = Ranking(pointlist2, start = 2, key = getPoints)
+        ranklist = list(therest)
+        ranklist.insert(0, (1, firstplace[1]))
+        winner = firstplace[1].first_name
+
+
+    context = {'pointlist': ranklist, 'currentuser': currentuser, 'winner': winner}
     return render(request, 'picks/leaderboard.html', context)

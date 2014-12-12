@@ -3,6 +3,9 @@
 {% block content %}
 <div class="container">
 	<h2>Leaderboard</h2>
+	{% if winner %}
+		<h3>Congratulations 2014 Champion: {{ winner }}!</h3>
+	{% endif %}
 	<div class="panel panel-default">
 		<table class="table table-hover table-condensed">
 			<thead>
