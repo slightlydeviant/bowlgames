@@ -1,6 +1,7 @@
 To do:
 Version 1.0
-- Finish tiebreaker in logic (webscrape and django)
+- Confirm working points logic
+- Confirm tiebreaker in logic
 
 
 Version 1.1

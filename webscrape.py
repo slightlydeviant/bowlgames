@@ -29,7 +29,7 @@ for game in games:
 
 for tm in Team.objects.filter(game__season = currentseason):
     if tm.team in winTeam:
-        tm.win = True
+        tm.win = tm.game.weight
         tm.save()
 
 # Get game total scores

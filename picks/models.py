@@ -21,7 +21,8 @@ class Game(models.Model):
 class Team(models.Model):
     game = models.ForeignKey(Game)
     team = models.CharField(max_length = 80)
-    win = models.NullBooleanField()
+    # win = models.NullBooleanField()
+    win = models.IntegerField(default = 0)
     display_name = models.CharField(max_length = 2)
     def __unicode__(self):
         return self.team
