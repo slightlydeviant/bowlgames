@@ -20,12 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '4lq$ef0bq(o&i5$lm6pgvp)-o@rwp-kxu9kel@0vt&2$boy3mp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+# TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-ALLOWED_HOSTS = ['leefamilybowl.tk', 'www.leefamilybowl.tk']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['leefamilybowl.tk', 'www.leefamilybowl.tk']
 
 
 # Application definition

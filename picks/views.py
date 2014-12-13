@@ -16,7 +16,7 @@ def pickwinners(request):
     """Renders the pick selection page. Populates dropdown lists"""
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('accounts:login_page'))
-    Close picks after first kickoff
+    # Close picks after first kickoff
     if min(Game.objects.filter(season = currentseason)\
         .values_list('kickoff_time', flat=True)) < timezone.now():
         msg1 = "Too Late!"
@@ -115,7 +115,7 @@ def savepicks(request):
 
 def pickgrid(request):
     """Renders the grid of all picks by all users"""
-    Close grid while picks are live (before first kickoff)
+    # Close grid while picks are live (before first kickoff)
     if min(Game.objects.filter(season = currentseason)\
         .values_list('kickoff_time', flat=True)) > timezone.now():
         msg1 = "No Peeking!"

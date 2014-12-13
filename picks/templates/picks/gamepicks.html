@@ -13,20 +13,21 @@
 	    <form action="{% url 'picks:index' %}" method="post" role="form">
 	    {% csrf_token %}
         {% for bowl in game_list|dictsort:"kickoff_time" %}
-            <div class="form-group">
+          <div class="form-group">
 	            <label for="game">{{ bowl.game }}</label>
 		        <select name="{{ bowl.id }}" class="form-control">
 			        <option value="">Choose Team for {{ bowl.game }}</option>
                 {% for teams in bowl.team_set.all %}
-			        <option value = "{{ teams.id }}">{{ teams.team }}</option>
-		        {% endfor %}
+			          <option value = "{{ teams.id }}">{{ teams.team }}</option>
+		            {% endfor %}
 		        </select>
-	            {% if 'BCS' in bowl.game %}
+	            {% if 'National Championship' in bowl.game %}
+              <label for="game">{{ bowl.game }} Tiebreaker Points</label>
 	            <input name="{{ bowl.id }}_tiebreak" class="form-control" placeholder="{{ bowl.game }} Total Points">
 		        {% endif %}
-		    </div>
-        {% endfor %}
-	    <button type="submit" class="btn btn-default">Submit Picks</button>
+		      </div>
+          {% endfor %}
+	      <button type="submit" class="btn btn-default">Submit Picks</button>
 	    </form>
     {% else %}
         <p>No games are available<p>
