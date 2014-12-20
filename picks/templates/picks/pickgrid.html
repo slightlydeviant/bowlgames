@@ -30,9 +30,9 @@
 					{% endif %}
 				{% endfor %}
 			</tr>
-			{% if 'BCS' in g.grouper.game %}
+			{% if 'CFP' in g.grouper.game %}
 			<tr>
-				<th><span>BCS Tiebreaker</span></th>
+				<th><span>National Championship Tiebreaker Points</span></th>
 				{% for item in g.list %}
 				<td>{{ item.tiebreak }}</td>
 				{% endfor %}
